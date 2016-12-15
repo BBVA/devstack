@@ -1,0 +1,25 @@
+---
+box: ubuntu/trusty64
+password: enrique
+networking:
+  bridge: en0
+  netmask: 255.255.255.0
+  address: 192.168.10.10
+resources:
+  memory: 4096
+  vcpus: 2
+  storage: 65536
+service:
+  rally: false
+  tempest: false
+  swift: true
+  ceilometer: false
+  ceph: false
+  ironic: false
+  sahara: false
+  trove: false
+  zaqar: false
+  heat: true
+  magnum: true
+  senlin: false
+  murano: false
