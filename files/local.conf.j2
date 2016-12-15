@@ -97,4 +97,7 @@ enable_plugin senlin https://git.openstack.org/openstack/senlin
 enable_plugin senlin-dashboard https://git.openstack.org/openstack/senlin-dashboard
 {% endif %}
 
-
+{% if devstack.searchlight.senlin %}
+enable_plugin searchlight https://github.com/openstack/searchlight
+enable_service searchlight-api searchlight-listener
+{% endif %}

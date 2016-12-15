@@ -24,5 +24,6 @@ devstack:
     heat: true
     magnum: true
     senlin: false
+    searchlight: false
     murano: false
     designate: false
