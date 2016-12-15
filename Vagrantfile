@@ -42,8 +42,10 @@ Vagrant.configure(2) do |config|
                       inline: 'cd /home/vagrant/devstack && ./stack.sh',
                       privileged: false,
                       keep_color: true
-#    node.vm.network :private_network, ip: "11.0.0.8"
-     node.vm.network :private_network, ip: "192.168.10.10"
+     node.vm.network :private_network,
+                      ip: CONFIG['networking']['address'],
+                      netmask: CONFIG['networking']['netmask'],
+                      bridge: CONFIG['networking']['bridge']
 #    node.vm.network :public_network,
 #                    ip: CONFIG['networking']['address'],
 #                    netmask: CONFIG['networking']['netmask'],
