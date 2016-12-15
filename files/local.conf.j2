@@ -32,7 +32,7 @@ enable_service tempest
 # IMAGE_URLS
 
 {% if devstack.services.rally %}
-enable_plugin rally https://github.com/openstack/rally master
+enable_plugin rally https://github.com/openstack/rally {{ devstack.release }}
 {% endif %}
 
 
@@ -46,21 +46,17 @@ SWIFT_REPLICAS=1
 {% endif %}
 
 {% if devstack.services.heat %}
-enable_plugin heat https://github.com/openstack/heat master
+enable_plugin heat https://github.com/openstack/heat {{ devstack.release }}
 #enable_service h-eng h-api h-api-cfn h-api-cw
 {% endif %}
 
 {% if devstack.services.magnum %}
-enable_plugin magnum https://github.com/openstack/magnum master
+enable_plugin magnum https://github.com/openstack/magnum {{ devstack.release }}
 {% endif %}
 
 {% if devstack.services.trove %}
-enable_service trove
-enable_service tr-tmgr
-enable_service tr-cond
-enable_service tr-api
-
-enable_plugin trove git://git.openstack.org/openstack/trove
+enable_plugin trove git://git.openstack.org/openstack/trove {{ devstack.release }}
+enable_service trove tr-tmgr tr-cond tr-api
 {% endif %}
 
 {% if devstack.services.ceilometer %}
@@ -74,7 +70,7 @@ enable_service ceilometer-alarm-evaluator
 {% endif %}
 
 {% if devstack.services.sahara %}
-enable_service sahara
+enable_plugin sahara git://git.openstack.org/openstack/sahara {{ devstack.release }}
 {% endif %}
 
 {% if devstack.services.ceph %}
@@ -84,20 +80,21 @@ CINDER_ENABLED_BACKENDS=ceph
 {% endif %}
 
 {% if devstack.services.ironic %}
+enable_plugin ironic git://git.openstack.org/openstack/ironic {{ devstack.release }}
 enable_service ir-api
 enable_service ir-cond
 {% endif %}
 
 {% if devstack.services.zaqar %}
-enable_service zaqar-server
+enable_plugin zaqar https://git.openstack.org/openstack/zaqar {{ devstack.release }}
 {% endif %}
 
 {% if devstack.services.senlin %}
-enable_plugin senlin https://git.openstack.org/openstack/senlin
-enable_plugin senlin-dashboard https://git.openstack.org/openstack/senlin-dashboard
+enable_plugin senlin https://git.openstack.org/openstack/senlin {{ devstack.release }}
+enable_plugin senlin-dashboard https://git.openstack.org/openstack/senlin-dashboard {{ devstack.release }}
 {% endif %}
 
 {% if devstack.services.searchlight %}
-enable_plugin searchlight https://github.com/openstack/searchlight
+enable_plugin searchlight https://github.com/openstack/searchlight {{ devstack.release }}
 enable_service searchlight-api searchlight-listener
 {% endif %}
