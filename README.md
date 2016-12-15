@@ -1,2 +1,3 @@
-# devstack
-Devstack and Vagrant 
+# Devstack
+
+Creates a complete Openstack environment by using Vagrant + Devstack + Ansible
