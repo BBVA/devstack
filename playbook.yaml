@@ -13,6 +13,6 @@
   - name: Clone devstack repository from Github
     git: repo=https://github.com/openstack-dev/devstack
          dest=/home/vagrant/devstack
-         version=master
+         version={{ devstack.release }}
   - name: Configuration file local.conf
     template: src=files/local.conf.j2 dest=/home/vagrant/devstack/local.conf
