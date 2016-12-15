@@ -1,0 +1,18 @@
+- hosts: all
+  tasks:
+  - include_vars: config.yaml
+  - name: Upgrade all installed packages
+    apt: upgrade=yes update_cache=yes
+    sudo: True
+  - name: Install necessary packages
+    apt: name={{ item }} state=present
+    sudo: True
+    with_items:
+    - git
+    - build-essential
+  - name: Clone devstack repository from Github
+    git: repo=https://github.com/openstack-dev/devstack
+         dest=/home/vagrant/devstack
+         version=master
+  - name: Configuration file local.conf
+    template: src=files/local.conf.j2 dest=/home/vagrant/devstack/local.conf
