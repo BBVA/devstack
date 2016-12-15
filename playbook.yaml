@@ -3,10 +3,10 @@
   - include_vars: config.yaml
   - name: Upgrade all installed packages
     apt: upgrade=yes update_cache=yes
-    sudo: True
+    become: yes
   - name: Install necessary packages
     apt: name={{ item }} state=present
-    sudo: True
+    become: yes
     with_items:
     - git
     - build-essential

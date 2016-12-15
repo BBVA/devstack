@@ -41,7 +41,7 @@ enable_service s-proxy
 enable_service s-object
 enable_service s-container
 enable_service s-account
-SWIFT_HASH={{ password }}
+SWIFT_HASH={{ devstack.password }}
 SWIFT_REPLICAS=1
 {% endif %}
 
@@ -54,7 +54,7 @@ enable_plugin heat https://github.com/openstack/heat master
 enable_plugin magnum https://github.com/openstack/magnum master
 {% endif %}
 
-{% if service.trove %}
+{% if devstack.services.trove %}
 enable_service trove
 enable_service tr-tmgr
 enable_service tr-cond
