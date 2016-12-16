@@ -7,6 +7,9 @@ SERVICE_PASSWORD={{ devstack.password }}
 ADMIN_PASSWORD={{ devstack.password }}
 
 HOST_IP={{ networking.address }}
+GIT_BASE={{ devstack.git_base }}
+GIT_OS=$GIT_BASE/openstack
+DEVSTACK_RELEASE={{ devstack.release }}
 
 #FLOATING_RANGE=172.20.10.0/28 
 #Q_FLOATING_ALLOCATION_POOL=start=172.20.10.5,end=192.168.1.10
@@ -25,76 +28,32 @@ enable_service q-fwaas
 enable_service q-lbaas
 IP_VERSION=4+6
 
-{% if devstack.services.tempest %}
-enable_service tempest
-{% endif %}
+IMAGES_URLS="https://launchpad.net/cirros/trunk/0.3.2/+download/cirros-0.3.2-source.tar.gz"
 
-# IMAGE_URLS
-
-{% if devstack.services.rally %}
-enable_plugin rally https://github.com/openstack/rally {{ devstack.release }}
-{% endif %}
-
-
-{% if devstack.services.swift %}
-enable_service s-proxy
-enable_service s-object
-enable_service s-container
-enable_service s-account
+{% if 'services' in devstack %}
+disable_all_services
+  {%- for service in devstack.services %}
+    {% if service.name == 'swift' %}
 SWIFT_HASH={{ devstack.password }}
 SWIFT_REPLICAS=1
-{% endif %}
-
-{% if devstack.services.heat %}
-enable_plugin heat https://github.com/openstack/heat {{ devstack.release }}
-#enable_service h-eng h-api h-api-cfn h-api-cw
-{% endif %}
-
-{% if devstack.services.magnum %}
-enable_plugin magnum https://github.com/openstack/magnum {{ devstack.release }}
-{% endif %}
-
-{% if devstack.services.trove %}
-enable_plugin trove git://git.openstack.org/openstack/trove {{ devstack.release }}
-enable_service trove tr-tmgr tr-cond tr-api
-{% endif %}
-
-{% if devstack.services.ceilometer %}
-enable_service ceilometer-acompute
-enable_service ceilometer-acentral
-enable_service ceilometer-anotification
-enable_service ceilometer-collector
-enable_service ceilometer-api
-enable_service ceilometer-alarm-notifier
-enable_service ceilometer-alarm-evaluator
-{% endif %}
-
-{% if devstack.services.sahara %}
-enable_plugin sahara git://git.openstack.org/openstack/sahara {{ devstack.release }}
-{% endif %}
-
-{% if devstack.services.ceph %}
-enable_service ceph
+#SWIFT_STORAGE_IPS="192.168.1.10 192.168.1.11 192.168.1.12"
+    {% endif %}
+    {% if service.name == 'ceph' %}
 CINDER_DRIVER=ceph
 CINDER_ENABLED_BACKENDS=ceph
-{% endif %}
+    {% endif %}
+enable_service {{ service.services }}
+  {% endfor -%}
 
-{% if devstack.services.ironic %}
-enable_plugin ironic git://git.openstack.org/openstack/ironic {{ devstack.release }}
-enable_service ir-api
-enable_service ir-cond
-{% endif %}
-
-{% if devstack.services.zaqar %}
-enable_plugin zaqar https://git.openstack.org/openstack/zaqar {{ devstack.release }}
-{% endif %}
-
-{% if devstack.services.senlin %}
-enable_plugin senlin https://git.openstack.org/openstack/senlin {{ devstack.release }}
-enable_plugin senlin-dashboard https://git.openstack.org/openstack/senlin-dashboard {{ devstack.release }}
-{% endif %}
-
-{% if devstack.services.searchlight %}
-enable_plugin searchlight https://github.com/openstack/searchlight {{ devstack.release }}
-enable_service searchlight-api searchlight-listener
+{% elif 'plugins' in devstack %}
+  {%- for plugin in devstack.plugins %}
+    {% if plugin.active %}
+        {% if plugin.name == 'heat' %}
+# Add a valid image
+IMAGE_URLS+=",http://download.fedoraproject.org/pub/fedora/linux/releases/21/Cloud/Images/x86_64/Fedora-Cloud-Base-20141203-21.x86_64.qcow2"
+        {% endif %}
+PLUGIN_NAME={{ plugin.name }}
+enable_plugin $PLUGIN_NAME {{ plugin.git_url|default("${GIT_OS}/${PLUGIN_NAME}") }} {{ plugin.release|default("$DEVSTACK_RELEASE") }}
+    {% endif %}
+  {% endfor -%}
 {% endif %}
