@@ -11,19 +11,35 @@ resources:
 devstack:
   release: master
   password: enrique
+  git_base: https://github.com/openstack
   services:
-    rally: false
-    tempest: false
-    swift: true
-    ceilometer: false
-    ceph: false
-    ironic: false
-    sahara: false
-    trove: false
-    zaqar: false
-    heat: true
-    magnum: true
-    senlin: false
-    searchlight: false
-    murano: false
-    designate: false
+    - name: rally
+      active: false
+    - name: tempest
+      active: false
+    - name: swift
+      active: true
+    - name: ceilometer
+      active: false
+    - name: ceph
+      active: false
+    - name: ironic
+      active: false
+    - name: sahara
+      active: true
+    - name: trove
+      active: false
+    - name: zaqar
+      active: false
+    - name: heat
+      active: true
+    - name: magnum
+      active: true
+    - name: senlin
+      active: false
+    - name: searchlight
+      active: true
+    - name: murano
+      active: true
+    - name: designate
+      active: false
