@@ -49,9 +49,9 @@ devstack:
     - name: ironic
       active: false
     - name: sahara
-      active: true
+      active: false
     - name: sahara-dashboard
-      active: true
+      active: false
     - name: trove
       active: false
     - name: trove-dashboard
@@ -61,9 +61,9 @@ devstack:
     - name: heat
       active: true
     - name: magnum
-      active: true
+      active: false
     - name: magnum-ui
-      active: true
+      active: false
     - name: senlin
       active: false
     - name: senlin-dashboard

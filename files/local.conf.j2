@@ -6,6 +6,8 @@ SERVICE_TOKEN={{ devstack.password }}
 SERVICE_PASSWORD={{ devstack.password }}
 ADMIN_PASSWORD={{ devstack.password }}
 
+REGION_NAME=RegionOne
+
 HOST_IP={{ networking.address }}
 GIT_BASE={{ devstack.git_base }}
 GIT_OS=$GIT_BASE/openstack
@@ -15,6 +17,9 @@ DEVSTACK_RELEASE={{ devstack.release }}
 #Q_FLOATING_ALLOCATION_POOL=start=172.20.10.5,end=192.168.1.10
 #FIXED_RANGE=10.0.1.0/24 
 #FIXED_NETWORK_SIZE=256
+
+DOWNLOAD_DEFAULT_IMAGES=False
+DEFAULT_INSTANCE_TYPE=m1.tiny
 
 disable_service n-net
 enable_service q-svc
@@ -26,6 +31,7 @@ enable_service q-metering
 enable_service q-vpn
 enable_service q-fwaas
 enable_service q-lbaas
+
 IP_VERSION=4+6
 
 IMAGES_URLS="https://launchpad.net/cirros/trunk/0.3.2/+download/cirros-0.3.2-source.tar.gz"
