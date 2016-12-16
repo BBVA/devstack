@@ -12,11 +12,34 @@ devstack:
   release: master
   password: enrique
   git_base: https://github.com/openstack
-  services:
+#  services:
+#    - name: ironic
+#      services: ir-api ir-cond
+#    - name: heat
+#      services: h-eng h-api h-api-cfn h-api-cw
+#    - name: keystone
+#      services: key
+#    - name: swift
+#      services: s-proxy s-object s-container s-account
+#    - name: ceph
+#      services: ceph
+#    - name: db
+#      services: mysql
+#    - name: trove
+#      services: trove tr-tmgr tr-cond tr-api
+#    - name: ceilometer
+#      services: >
+#        ceilometer-acompute ceilometer-acentral ceilometer-anotification ceilometer-collector ceilometer-api
+#        ceilometer-alarm-notifier ceilometer-alarm-evaluator
+#    - name: searchlight
+#      services: searchlight-api searchlight-listener
+  plugins:
     - name: rally
       active: false
     - name: tempest
       active: false
+    - name: neutron
+      active: true
     - name: swift
       active: true
     - name: ceilometer
@@ -27,7 +50,11 @@ devstack:
       active: false
     - name: sahara
       active: true
+    - name: sahara-dashboard
+      active: true
     - name: trove
+      active: false
+    - name: trove-dashboard
       active: false
     - name: zaqar
       active: false
@@ -35,11 +62,15 @@ devstack:
       active: true
     - name: magnum
       active: true
+    - name: magnum-ui
+      active: true
     - name: senlin
       active: false
+    - name: senlin-dashboard
+      active: false
     - name: searchlight
-      active: true
+      active: false
     - name: murano
-      active: true
+      active: false
     - name: designate
       active: false
