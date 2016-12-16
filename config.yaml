@@ -11,7 +11,7 @@ resources:
 devstack:
   release: master
   password: enrique
-  git_base: https://github.com/openstack
+  git_base: https://github.com
 #  services:
 #    - name: ironic
 #      services: ir-api ir-cond
