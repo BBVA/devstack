@@ -14,8 +14,8 @@ Users could get their VM only changing parameters in YAML file.
 
 Some examples of YAML files:
 
- - http://juliangut.com/blog/configure-vagrant-hosts-yaml
- - http://blog.scottlowe.org/2016/01/14/improved-way-yaml-vagrant/
+ - <http://juliangut.com/blog/configure-vagrant-hosts-yaml>
+ - <http://blog.scottlowe.org/2016/01/14/improved-way-yaml-vagrant/>
 
 ### Devstack configuration
 
