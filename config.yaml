@@ -12,19 +12,31 @@ devstack:
   release: master
   password: enrique
   git_base: https://github.com
-#  services:
+  services:
+    - name: keystone
+      services: key
+#      release: rc-1
+#      repo: https://github.com/engapa/keystone
+    - name: nova
+      services: n-api n-cpu n-cond n-sch n-novnc n-cauth
+    - name: glance
+      services: g-api g-reg
+    - name: cinder
+      services: c-sch c-api c-vol
+    - name: neutron
+      services: q-svc q-dhcp q-meta q-agt q-l3
+    - name: horizon
+      services: horizon
+    - name: thirdparties
+      services: rabbit mysql dstat
 #    - name: ironic
 #      services: ir-api ir-cond
 #    - name: heat
 #      services: h-eng h-api h-api-cfn h-api-cw
-#    - name: keystone
-#      services: key
 #    - name: swift
 #      services: s-proxy s-object s-container s-account
 #    - name: ceph
 #      services: ceph
-#    - name: db
-#      services: mysql
 #    - name: trove
 #      services: trove tr-tmgr tr-cond tr-api
 #    - name: ceilometer
@@ -34,43 +46,43 @@ devstack:
 #    - name: searchlight
 #      services: searchlight-api searchlight-listener
   plugins:
-    - name: rally
-      active: false
-    - name: tempest
-      active: false
-    - name: neutron
-      active: true
-    - name: swift
-      active: true
-    - name: ceilometer
-      active: false
-    - name: ceph
-      active: false
-    - name: ironic
-      active: false
-    - name: sahara
-      active: false
-    - name: sahara-dashboard
-      active: false
-    - name: trove
-      active: false
-    - name: trove-dashboard
-      active: false
-    - name: zaqar
-      active: false
+#    - name: rally
+#      active: true
+#    - name: tempest
+#      active: false
+#    - name: neutron
+#      active: true
+#    - name: swift
+#      active: true
+#    - name: ceilometer
+#      active: false
+#    - name: ceph
+#      active: false
+#    - name: ironic
+#      active: false
+#    - name: sahara
+#      active: false
+#    - name: sahara-dashboard
+#      active: false
+#    - name: trove
+#      active: false
+#    - name: trove-dashboard
+#      active: false
+#    - name: zaqar
+#      active: false
     - name: heat
       active: true
-    - name: magnum
-      active: false
-    - name: magnum-ui
-      active: false
-    - name: senlin
-      active: false
-    - name: senlin-dashboard
-      active: false
-    - name: searchlight
-      active: false
-    - name: murano
-      active: false
-    - name: designate
-      active: false
+#    - name: magnum
+#      active: false
+#    - name: magnum-ui
+#      active: false
+#    - name: senlin
+#      active: false
+#    - name: senlin-dashboard
+#      active: false
+#    - name: searchlight
+#      active: false
+#    - name: murano
+#      active: false
+#    - name: designate
+#      active: false
