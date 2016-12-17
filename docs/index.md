@@ -13,6 +13,7 @@ We have a YAML file in order to get a separate configuration and Vagrant file.
 Users could get their VM only changing parameters in YAML file.
 
 Some examples of YAML files:
+
  - http://juliangut.com/blog/configure-vagrant-hosts-yaml
  - http://blog.scottlowe.org/2016/01/14/improved-way-yaml-vagrant/
 
