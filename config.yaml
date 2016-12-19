@@ -31,58 +31,44 @@ devstack:
       services: rabbit mysql dstat
 #    - name: ironic
 #      services: ir-api ir-cond
-#    - name: heat
+    - name: heat
 #      services: h-eng h-api h-api-cfn h-api-cw
+      plugin: true
+      env:
+       - IMAGE_URLS+: ",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
 #    - name: swift
 #      services: s-proxy s-object s-container s-account
+#      env:
+#       - SWIFT_HASH: "$SERVICE_PASSWORD"
+#       - SWIFT_REPLICAS: 1
+#       - SWIFT_STORAGE_IPS: "192.168.1.10 192.168.1.11 192.168.1.12"
 #    - name: ceph
 #      services: ceph
+#      env:
+#       - CINDER_DRIVER=ceph
+#       - CINDER_ENABLED_BACKENDS=ceph
 #    - name: trove
 #      services: trove tr-tmgr tr-cond tr-api
 #    - name: ceilometer
 #      services: >
 #        ceilometer-acompute ceilometer-acentral ceilometer-anotification ceilometer-collector ceilometer-api
 #        ceilometer-alarm-notifier ceilometer-alarm-evaluator
+#      env:
+#       - CEILOMETER_BACKEND: mongodb
+#       - CEILOMETER_NOTIFICATION_TOPICS: notifications,profiler
 #    - name: searchlight
 #      services: searchlight-api searchlight-listener
-  plugins:
-#    - name: rally
-#      active: true
-#    - name: tempest
-#      active: false
-#    - name: neutron
-#      active: true
-#    - name: swift
-#      active: true
-#    - name: ceilometer
-#      active: false
-#    - name: ceph
-#      active: false
-#    - name: ironic
-#      active: false
 #    - name: sahara
-#      active: false
 #    - name: sahara-dashboard
-#      active: false
 #    - name: trove
-#      active: false
 #    - name: trove-dashboard
-#      active: false
 #    - name: zaqar
-#      active: false
-    - name: heat
-      active: true
 #    - name: magnum
-#      active: false
 #    - name: magnum-ui
-#      active: false
 #    - name: senlin
-#      active: false
 #    - name: senlin-dashboard
-#      active: false
-#    - name: searchlight
-#      active: false
 #    - name: murano
-#      active: false
 #    - name: designate
-#      active: false
+#    - name: aodh
+#    - name: rally
+#    - name: tempest
