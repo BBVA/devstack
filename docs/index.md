@@ -16,7 +16,7 @@ Some examples of YAML files:
 ## Devstack configuration
 
 People who have launched a devstack VM know that there are a lot of variables.
-We have tried collect almost all services and plugins in the YAML file and simplify the use ot them.
+We have tried collect almost all services and plugins in the YAML file and simplify the use of them.
 
 ## Create a VM
 
