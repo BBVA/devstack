@@ -31,7 +31,7 @@ disable_all_services
 {% if 'env' in service %}
 {% for var_env in service.env %}
 {% for key, value in var_env.iteritems() %}
-{{ key }}={{ value }}
+{{ key }}="{{ value }}"
 {% endfor %}
 {% endfor %}
 {% endif %}
@@ -43,6 +43,3 @@ enable_plugin {{ service.name }} {{ service.repo|default("${GIT_OS}/" + service.
 {% endif %}
 {% endfor -%}
 {% endif %}
-
-
-

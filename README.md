@@ -26,14 +26,26 @@ and Ansible will be used to setup devstack configuration.
 ```
 $ vagrant up --provision
 ...
-<url - dashboard>
+==> devstack: =========================
+==> devstack: This is your host IP address: 192.168.10.10
+==> devstack: This is your host IPv6 address: ::1
+==> devstack: Horizon is now available at http://192.168.10.10/dashboard
+==> devstack: Keystone is serving at http://192.168.10.10/identity/
+==> devstack: The default users are: admin and demo
+==> devstack: The password: enrique
+==> devstack: 2016-12-19 14:21:53.960 | stack.sh completed in 1806 seconds.
 ```
 
 Enter into the VM and check it out the configuration and services:
 
 ```
 $ vagrant ssh
-$ [devstack] : screen
+$ screen -ls
+There is a screen on:
+	12828.stack	(12/19/2016 01:51:42 PM)	(Detached)
+1 Socket in /var/run/screen/S-vagrant.
+$ screen -r 12828.stack
+...
 ```
 
 ## Use external OS clients
