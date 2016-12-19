@@ -19,36 +19,36 @@ DEVSTACK_RELEASE={{ devstack.release }}
 DOWNLOAD_DEFAULT_IMAGES=True
 DEFAULT_INSTANCE_TYPE=m1.tiny
 
-{% if 'services' in devstack %}
+{% if 'services' in devstack -%}
 disable_all_services
-  {%- for service in devstack.services %}
-    {% if service.name == 'swift' %}
+{% for service in devstack.services -%}
+{%- if service.name == 'swift' %}
 SWIFT_HASH={{ devstack.password }}
 SWIFT_REPLICAS=1
 #SWIFT_STORAGE_IPS="192.168.1.10 192.168.1.11 192.168.1.12"
-    {% endif %}
-    {% if service.name == 'ceph' %}
+{% endif %}
+{%- if service.name == 'ceph' %}
 CINDER_DRIVER=ceph
 CINDER_ENABLED_BACKENDS=ceph
-    {% endif %}
-    {% if 'release' in service %}
+{% endif %}
+{%- if 'release' in service %}
 {{ service.name|upper }}_BRANCH={{ service.release }}
-    {% endif %}
-    {% if 'repo' in service %}
+{% endif -%}
+{%- if 'repo' in service %}
 {{ service.name|upper }}_REPO={{ service.repo }}
-    {% endif %}
+{% endif %}
 enable_service {{ service.services }}
-  {% endfor -%}
+{% endfor -%}
 
 {% elif 'plugins' in devstack %}
-  {%- for plugin in devstack.plugins %}
-    {% if plugin.active %}
-        {% if plugin.name == 'heat' %}
+{% for plugin in devstack.plugins -%}
+{%- if plugin.active -%}
+{%- if plugin.name == 'heat' -%}
 # Add a valid image
 IMAGE_URLS+=",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
-        {% endif %}
+{%- endif %}
 PLUGIN_NAME={{ plugin.name }}
 enable_plugin $PLUGIN_NAME {{ plugin.git_url|default("${GIT_OS}/${PLUGIN_NAME}") }} {{ plugin.release|default("$DEVSTACK_RELEASE") }}
-    {% endif %}
-  {% endfor -%}
+{% endif -%}
+{% endfor -%}
 {% endif %}
