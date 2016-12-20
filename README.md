@@ -50,7 +50,7 @@ $ screen -r 12828.stack
 
 ## Use external OS clients
 
-Take a look at : <http://engapa.gituhb.io/osc-docker-builder>
+Take a look at : <http://engapa.github.io/osc-docker-builder>
 
 Just add the endpoint and credentials of our devstack into ***clouds.yml*** file,
  run the container and use its openstack client
