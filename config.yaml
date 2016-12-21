@@ -31,11 +31,11 @@ devstack:
       services: rabbit mysql dstat
 #    - name: ironic
 #      services: ir-api ir-cond
-    - name: heat
+#    - name: heat
 #      services: h-eng h-api h-api-cfn h-api-cw
-      plugin: true
-      env:
-       - IMAGE_URLS+: ",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
+#      plugin: true
+#      env:
+#       - IMAGE_URLS+: ",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
 #    - name: swift
 #      services: s-proxy s-object s-container s-account
 #      env:
@@ -59,6 +59,7 @@ devstack:
 #    - name: searchlight
 #      services: searchlight-api searchlight-listener
 #    - name: sahara
+#      plugin: true
 #    - name: sahara-dashboard
 #    - name: trove
 #    - name: trove-dashboard
@@ -69,6 +70,9 @@ devstack:
 #    - name: senlin-dashboard
 #    - name: murano
 #    - name: designate
+#      plugin: true
+#      services: designate designate-central designate-api designate-pool-manager designate-zone-manager designate-mdns
+#      env_file: designate.j2
 #    - name: aodh
 #    - name: rally
 #    - name: tempest

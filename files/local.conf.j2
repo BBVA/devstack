@@ -1,3 +1,4 @@
+#jinja2:lstrip_blocks: True
 [[local|localrc]]
 
 DATABASE_PASSWORD={{ devstack.password }}
@@ -11,35 +12,46 @@ GIT_BASE={{ devstack.git_base }}
 GIT_OS=$GIT_BASE/openstack
 DEVSTACK_RELEASE={{ devstack.release }}
 
-#FLOATING_RANGE=172.20.10.0/28 
+#FLOATING_RANGE=172.20.10.0/28
 #Q_FLOATING_ALLOCATION_POOL=start=172.20.10.5,end=192.168.1.10
-#FIXED_RANGE=10.0.1.0/24 
+#FIXED_RANGE=10.0.1.0/24
 #FIXED_NETWORK_SIZE=256
+
+# IP Address for services to bind to (Should match IP from Vagrantfile)
+SERVICE_HOST={{ networking.address }}
+
+# Logging
+#LOGFILE=/opt/stack/logs/stack.sh.log
+SCREEN_LOGDIR=/opt/stack/logs
+VERBOSE=True
+LOG_COLOR=True
 
 DOWNLOAD_DEFAULT_IMAGES=True
 DEFAULT_INSTANCE_TYPE=m1.tiny
 
 {% if 'services' in devstack -%}
-disable_all_services
-{% for service in devstack.services -%}
-{%- if 'release' in service %}
-{{ service.name|upper }}_BRANCH={{ service.release }}
-{% endif -%}
-{%- if 'repo' in service %}
-{{ service.name|upper }}_REPO={{ service.repo }}
-{% endif -%}
-{% if 'env' in service %}
-{% for var_env in service.env %}
-{% for key, value in var_env.iteritems() %}
-{{ key }}="{{ value }}"
-{% endfor %}
-{% endfor %}
-{% endif %}
-{%- if 'services' in service %}
-enable_service {{ service.services }}
-{% endif -%}
-{% if 'plugin' in service %}
-enable_plugin {{ service.name }} {{ service.repo|default("${GIT_OS}/" + service.name) }} {{ service.release|default("$DEVSTACK_RELEASE") }}
-{% endif %}
-{% endfor -%}
+    disable_all_services
+    {% for service in devstack.services -%}
+        {% if 'plugin' in service -%}
+            enable_plugin {{ service.name }} {{ service.repo|default("${GIT_OS}/" + service.name) }} {{ service.release|default("$DEVSTACK_RELEASE") }}
+        {% endif %}
+        {% if 'services' in service -%}
+            enable_service {{ service.services }}
+        {% endif %}
+        {% if 'release' in service -%}
+            {{ service.name|upper }}_BRANCH={{ service.release }}
+        {% endif -%}
+        {% if 'repo' in service %}
+            {{ service.name|upper }}_REPO={{ service.repo }}
+        {% endif -%}
+        {% if 'env_file' in service %}
+           {% include service.env_file %}
+        {% elif 'env' in service %}
+            {% for var_env in service.env %}
+                {% for key, value in var_env.iteritems() -%}
+                    {{ key }}="{{ value }}"
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
 {% endif %}

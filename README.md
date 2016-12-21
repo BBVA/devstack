@@ -18,6 +18,11 @@ Some examples of YAML files:
 People who have launched a devstack VM know that there are a lot of variables.
 We have tried collect almost all services and plugins in the YAML file and simplify the use of them.
 
+Devstack configuration is defined under the entry ***devstack*** in the YAML file.
+
+If any plugin has a lot of env variables or another specific configuration it's possible to provide
+custom jinja templates by ***env_file*** parameter.
+
 ## Create a VM
 
 We'll create a VM using VirtualBox as Vagrant provider,
