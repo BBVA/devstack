@@ -1,0 +1,24 @@
+# heat service
+HEAT_REPO=${HEAT_REPO:-${GIT_BASE}/openstack/heat.git}
+HEAT_BRANCH=${HEAT_BRANCH:-master}
+
+# python heat client library
+HEATCLIENT_REPO=${GIT_BASE}/openstack/python-heatclient.git}
+HEATCLIENT_BRANCH=master
+
+# Toggle for deploying Heat-API under HTTPD + mod_wsgi
+HEAT_USE_MOD_WSGI=False
+
+HEAT_AUTH_CACHE_DIR=/var/cache/heat
+HEAT_STANDALONE=False
+HEAT_ENABLE_ADOPT_ABANDON=True
+HEAT_CONF_DIR=/etc/heat
+HEAT_API_HOST=$HOST_IP
+HEAT_API_PORT=8004
+HEAT_SERVICE_USER=heat
+HEAT_TRUSTEE_USER=$HEAT_SERVICE_USER
+HEAT_TRUSTEE_PASSWORD=$SERVICE_PASSWORD
+HEAT_TRUSTEE_DOMAIN=default
+
+HEAT_PLUGIN_DIR=$DATA_DIR/heat/plugins
+ENABLE_HEAT_PLUGINS=
