@@ -3,8 +3,13 @@ enable_plugin sahara ${GIT_BASE}/openstack/sahara {{ service.release|default("$D
 
 # Service
 enable_service sahara-api sahara-eng
+
 # Requirements
-enable_service heat h-eng h-api h-api-cfn h-api-cw
+if is_service_enabled heat; then
+  echo_summary "Heat requirement is installed :-)"
+elif
+  {% include heat.j2 %}
+fi
 
 # Set up default directories
 SAHARACLIENT_DIR=$DEST/python-saharaclient
@@ -32,3 +37,7 @@ SAHARA_PERIODIC_COORDINATOR_URL=kazoo://127.0.0.1:2181
 
 # Tell Tempest this project is present
 TEMPEST_SERVICES+=,sahara
+
+if is_service_enabled horizon; then
+  echo_summary "Installing Sahara dashboard"
+  enable_service sahara-dashboard
