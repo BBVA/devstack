@@ -1,9 +1,18 @@
 # Default devstack settings
 
-#enable_plugin magnum ${GIT_BASE}/openstack/magnum {{ service.release|default("$DEVSTACK_RELEASE") }}
+enable_plugin magnum ${GIT_BASE}/openstack/magnum {{ service.release|default("$DEVSTACK_RELEASE") }}
 
 # Enable Magnum services
-#enable_service magnum-api
-#enable_service magnum-cond
+enable_service magnum-api
+enable_service magnum-cond
+
+# Requirements
+
+if is_service_enabled heat; then
+  {% include heat.j2 %}
 
 #MAGNUM_GUEST_IMAGE_URL="https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2"
+
+if is_service_enabled horizon; then
+  echo_summary "Installing Magnum dashboard"
+  enable_service magnum-ui
