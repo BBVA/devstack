@@ -32,26 +32,6 @@ DEFAULT_INSTANCE_TYPE=m1.tiny
 {% if 'services' in devstack -%}
     disable_all_services
     {% for service in devstack.services -%}
-        {% if 'plugin' in service -%}
-            enable_plugin {{ service.name }} {{ service.repo|default("${GIT_OS}/" + service.name) }} {{ service.release|default("$DEVSTACK_RELEASE") }}
-        {% endif %}
-        {% if 'services' in service -%}
-            enable_service {{ service.services }}
-        {% endif %}
-        {% if 'release' in service -%}
-            {{ service.name|upper }}_BRANCH={{ service.release }}
-        {% endif -%}
-        {% if 'repo' in service %}
-            {{ service.name|upper }}_REPO={{ service.repo }}
-        {% endif -%}
-        {% if 'env_file' in service %}
-           {% include service.env_file %}
-        {% elif 'env' in service %}
-            {% for var_env in service.env %}
-                {% for key, value in var_env.iteritems() -%}
-                    {{ key }}="{{ value }}"
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
+        {% include service.env_file %}
     {% endfor %}
 {% endif %}
