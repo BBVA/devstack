@@ -1,0 +1,8 @@
+# Check final local.conf file by using next command :  ansible-playbook -c local -i "localhost," playbook_test.yaml
+---
+- hosts: localhost
+  connection: local
+  tasks:
+  - include_vars: config.yaml
+  - name: Configuration file local.conf
+    template: src=files/local.conf.j2 dest=files/local_tes.conf
