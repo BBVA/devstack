@@ -31,7 +31,9 @@ DEFAULT_INSTANCE_TYPE=m1.tiny
 
 {% if 'services' in devstack -%}
     disable_all_services
-    {% for service in devstack.services -%}
-        {% include service.env_file %}
+    {% for service in devstack.services %}
+
+        {% include [service.name, '.j2']|join %}
+
     {% endfor %}
 {% endif %}

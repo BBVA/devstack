@@ -45,3 +45,4 @@ TEMPEST_SERVICES+=,zaqar
 enable_plugin zaqar ${GIT_BASE}/openstack/zaqar {{ service.release|default("$DEVSTACK_RELEASE") }}
 
 enable_service zaqar-websocket zaqar-wsgi
+
