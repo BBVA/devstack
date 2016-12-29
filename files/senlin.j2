@@ -1,4 +1,12 @@
+#SENLIN_USE_MOD_WSGI=True
+
+# Enable senlin
+enable_plugin senlin ${GIT_BASE}/openstack/senlin {{ service.release|default("$DEVSTACK_RELEASE") }}
+
+# Enable services
+enable_service sl-api sl-eng
 
 if is_service_enabled horizon; then
   echo_summary "Installing Senlin dashboard"
-  enable_service senlin-dashboard
+  enable_plugin senlin-dashboard ${GIT_BASE}/openstack/senlin-dashboard {{ service.release|default("$DEVSTACK_RELEASE") }}
+
