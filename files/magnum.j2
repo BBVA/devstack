@@ -1,13 +1,7 @@
 # ======================================= MAGNUM ==============================================
 
-# Requirements
-
-if is_service_enabled heat; then
-  echo_summary "Heat requirement is installed :-)"
-else
-  echo_summary "Installing Heat requirements ..."
-  {% include "heat.j2" %}
-fi
+{# Requirements #}
+{{ service_reqs('heat') }}
 
 #MAGNUM_GUEST_IMAGE_URL="https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2"
 

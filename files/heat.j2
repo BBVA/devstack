@@ -37,4 +37,7 @@ enable_service h-api
 enable_service h-api-cfn
 enable_service h-api-cw
 
+{% if 'heat' not in service_reqs %}
+{% do service_reqs.append('heat') %}
+{% endif %}
 # ============================================================================================

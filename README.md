@@ -4,9 +4,9 @@ Creates a complete Openstack environment by using Vagrant + Devstack + Ansible
 
 ## VM parameters
 
-We have a YAML file in order to get a separate configuration of the Vagrantfile.
+We have a main YAML file in order to get a separate configuration of the Vagrantfile.
 
-Users could get their VM only changing parameters in YAML file.
+Users could get their VM by just changing parameters in YAML file.
 
 Some examples of YAML files:
 
@@ -15,8 +15,8 @@ Some examples of YAML files:
 
 ## Devstack configuration
 
-People who have launched a devstack VM know that there are a lot of variables.
-We have tried collect almost all services and plugins in the YAML file and simplify the use of them.
+People who have launched a devstack VM know that there are a lot of variables or configuartions.
+We have tried collect almost all services and simplify the use of them.
 
 Devstack configuration is defined under the entry ***devstack*** in the YAML file.
 

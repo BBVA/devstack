@@ -27,13 +27,8 @@ SAHARA_PERIODIC_COORDINATOR_URL=kazoo://127.0.0.1:2181
 # Tell Tempest this project is present
 TEMPEST_SERVICES+=,sahara
 
-# Requirements
-if is_service_enabled heat; then
-  echo_summary "Heat requirement is installed :-)"
-else
-  echo_summary "Installing Heat requirements ..."
-  {% include "heat.j2" %}
-fi
+{# Requirements #}
+{{ service_reqs('heat') }}
 
 if is_service_enabled horizon; then
   echo_summary "Installing Sahara dashboard"

@@ -32,6 +32,17 @@ DEFAULT_INSTANCE_TYPE=m1.tiny
 # Tempest , use service configuration in YAML
 INSTALL_TEMPEST=False
 
+{% set service_reqs=[''] %}
+
+{% macro service_reqs(name) -%}
+{# Requirements #}
+{% if name not in service_reqs %}
+echo_summary "Installing Heat requirements ..."
+{% include [name,".j2"]|join %}
+{% else %}
+echo_summary {{ [name," requirement is installed :-)"]|join }}
+{% endif %}
+{%- endmacro %}
 
 {% if 'services' in devstack -%}
     disable_all_services
