@@ -66,7 +66,7 @@ GLARE_ENDPOINT_TYPE=publicURL
 
 if is_service_enabled heat; then
   echo_summary "Heat requirement is installed :-)"
-elif
+else
   {% include "heat.j2" %}
 fi
 
