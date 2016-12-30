@@ -34,7 +34,7 @@ INSTALL_TEMPEST=False
 
 {% set service_reqs=[''] %}
 
-{% macro service_reqs(name) -%}
+{% macro service_reqs_macro(name) -%}
 {# Requirements #}
 {% if name not in service_reqs %}
 echo_summary "Installing Heat requirements ..."

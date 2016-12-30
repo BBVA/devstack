@@ -64,7 +64,7 @@ TEMPEST_MURANO_DEPLOYMENT_TESTS_ENABLED=False
 GLARE_ENDPOINT_TYPE=publicURL
 
 {# Requirements #}
-{{ service_reqs('heat') }}
+{{ service_reqs_macro('heat') }}
 
 enable_plugin murano  ${GIT_BASE}/openstack/murano {{ service.release|default("$DEVSTACK_RELEASE") }}
 
