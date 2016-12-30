@@ -1,12 +1,4 @@
 # ======================================= CEILOMETER =====================================================
-# turn on all the ceilometer services by default (except for ipmi pollster)
-# Pollsters
-# enable_service ceilometer-acompute ceilometer-acentral
-# Notification Agent
-# enable_service ceilometer-anotification
-# Data Collector
-# enable_service ceilometer-collector
-
 
 # Default directories
 #CEILOMETER_DIR=$DEST/ceilometer
@@ -47,10 +39,10 @@ TEMPEST_SERVICES+=,ceilometer
 #CEILOMETERCLIENT_REPO=${GIT_BASE}/openstack/python-ceilometerclient.git
 #CEILOMETERCLIENT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 
-# Set up default directories for client and middleware
-#GITREPO["python-ceilometerclient"]=${CEILOMETERCLIENT_REPO}
-GITBRANCH["python-ceilometerclient"]=${CEILOMETERCLIENT_BRANCH}
-#GITDIR["python-ceilometerclient"]=$DEST/python-ceilometerclient
-#GITDIR["ceilometermiddleware"]=$DEST/ceilometermiddleware
+enable_service ceilometer-acompute ceilometer-acentral
+# Notification Agent
+# enable_service ceilometer-anotification
+# Data Collector
+# enable_service ceilometer-collector
 
 # ====================================================================================================

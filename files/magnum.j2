@@ -1,10 +1,4 @@
-# Default devstack settings
-
-enable_plugin magnum ${GIT_BASE}/openstack/magnum {{ service.release|default("$DEVSTACK_RELEASE") }}
-
-# Enable Magnum services
-enable_service magnum-api
-enable_service magnum-cond
+# ======================================= MAGNUM ==============================================
 
 # Requirements
 
@@ -21,3 +15,10 @@ if is_service_enabled horizon; then
   echo_summary "Installing Magnum dashboard"
   enable_service magnum-ui
 
+enable_plugin magnum ${GIT_BASE}/openstack/magnum {{ service.release|default("$DEVSTACK_RELEASE") }}
+
+# Enable Magnum services
+enable_service magnum-api
+enable_service magnum-cond
+
+# ============================================================================================

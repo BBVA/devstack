@@ -106,23 +106,11 @@ DESIGNATE_PLUGINS=$DESIGNATE_DIR/devstack/designate_plugins
 DESIGNATEDASHBOARD_REPO=${GIT_BASE}/openstack/designate-dashboard.git
 DESIGNATEDASHBOARD_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 
-GITREPO["designate-dashboard"]=${DESIGNATEDASHBOARD_REPO}
-GITBRANCH["designate-dashboard"]=${DESIGNATEDASHBOARD_BRANCH}
-GITDIR["designate-dashboard"]=$DEST/designate-dashboard
-
 DESIGNATECLIENT_REPO=${GIT_BASE}/openstack/python-designateclient.git
 DESIGNATECLIENT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 
-GITREPO["python-designateclient"]=$DESIGNATECLIENT_REPO
-GITBRANCH["python-designateclient"]=$DESIGNATECLIENT_BRANCH
-GITDIR["python-designateclient"]=$DEST/python-designateclient
-
 DESIGNATETEMPEST_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 DESIGNATETEMPEST_REPO=${GIT_BASE}/openstack/designate-tempest-plugin.git
-
-GITREPO["designate-tempest-plugin"]=${DESIGNATETEMPEST_REPO}
-GITBRANCH["designate-tempest-plugin"]=${DESIGNATETEMPEST_BRANCH}
-GITDIR["designate-tempest-plugin"]=$DEST/designate-tempest-plugin
 
 # Tell Tempest this project is present
 TEMPEST_SERVICES+=,designate
