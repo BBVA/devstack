@@ -29,6 +29,10 @@ LOG_COLOR=True
 DOWNLOAD_DEFAULT_IMAGES=True
 DEFAULT_INSTANCE_TYPE=m1.tiny
 
+# Tempest , use service configuration in YAML
+INSTALL_TEMPEST=False
+
+
 {% if 'services' in devstack -%}
     disable_all_services
     {% for service in devstack.services %}

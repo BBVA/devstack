@@ -1,3 +1,5 @@
+# ======================================= TROVE ===========================================
+
 # Set up default directories
 TROVE_DIR=${DEST}/trove
 TROVE_REPO=${GIT_BASE}/openstack/trove.git
@@ -46,10 +48,11 @@ TROVE_HOST_GATEWAY=${NETWORK_GATEWAY:-10.0.0.1}
 # Tell Tempest this project is present
 TEMPEST_SERVICES+=,trove
 
-enable_plugin trove ${GIT_BASE}/openstack/trove {{ service.release|default("$DEVSTACK_RELEASE") }}
-enable_service trove tr-api tr-tmgr tr-cond
-
 if is_service_enabled horizon; then
   echo_summary "Installing Trove dashboard"
   enable_service trove-dashboard
 
+enable_plugin trove ${GIT_BASE}/openstack/trove {{ service.release|default("$DEVSTACK_RELEASE") }}
+enable_service trove tr-api tr-tmgr tr-cond
+
+# ======================================================================================

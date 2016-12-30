@@ -1,5 +1,4 @@
-# Set up default directories
-#---------------------------
+# ======================================= ZAQAR =======================================
 
 ZAQAR_DIR=$DEST/zaqar
 ZAQARCLIENT_DIR=$DEST/python-zaqarclient
@@ -46,3 +45,4 @@ enable_plugin zaqar ${GIT_BASE}/openstack/zaqar {{ service.release|default("$DEV
 
 enable_service zaqar-websocket zaqar-wsgi
 
+# ==================================================================================

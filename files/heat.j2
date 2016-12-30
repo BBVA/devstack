@@ -1,11 +1,4 @@
-#Enable plugin
-enable_plugin heat ${GIT_BASE}/openstack/heat {{ service.release|default("$DEVSTACK_RELEASE") }}
-
-# Enable services
-enable_service h-eng
-enable_service h-api
-enable_service h-api-cfn
-enable_service h-api-cw
+# ======================================= HEAT ===============================================
 
 # heat service
 HEAT_REPO=${GIT_BASE}/openstack/heat.git
@@ -33,3 +26,15 @@ HEAT_PLUGIN_DIR=$DATA_DIR/heat/plugins
 ENABLE_HEAT_PLUGINS=
 
 IMAGE_URLS+= ",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
+
+#Enable plugin
+enable_plugin heat ${GIT_BASE}/openstack/heat {{ service.release|default("$DEVSTACK_RELEASE") }}
+
+# Enable services
+enable_service heat
+enable_service h-eng
+enable_service h-api
+enable_service h-api-cfn
+enable_service h-api-cw
+
+# ============================================================================================

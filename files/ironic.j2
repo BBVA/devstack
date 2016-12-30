@@ -1,3 +1,4 @@
+# ======================================= IRONIC ===============================================
 IRONIC_DEPLOY_DRIVER=pxe_ssh
 IRONIC_BAREMETAL_BASIC_OPS=True
 IRONIC_VM_LOG_DIR=/opt/stack/new/ironic-bm-logs
@@ -21,3 +22,5 @@ enable_plugin ironic ${GIT_BASE}/openstack/ironic {{ service.release|default("$D
 
 # Services
 enable_service ironic ir-api ir-cond
+
+# ============================================================================================
