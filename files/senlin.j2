@@ -5,6 +5,7 @@
 if is_service_enabled horizon; then
   echo_summary "Installing Senlin dashboard"
   enable_plugin senlin-dashboard ${GIT_BASE}/openstack/senlin-dashboard {{ service.release|default("$DEVSTACK_RELEASE") }}
+fi
 
 # Enable senlin
 enable_plugin senlin ${GIT_BASE}/openstack/senlin {{ service.release|default("$DEVSTACK_RELEASE") }}

@@ -51,6 +51,7 @@ TEMPEST_SERVICES+=,trove
 if is_service_enabled horizon; then
   echo_summary "Installing Trove dashboard"
   enable_service trove-dashboard
+fi
 
 enable_plugin trove ${GIT_BASE}/openstack/trove {{ service.release|default("$DEVSTACK_RELEASE") }}
 enable_service trove tr-api tr-tmgr tr-cond

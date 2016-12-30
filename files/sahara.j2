@@ -37,6 +37,7 @@ fi
 if is_service_enabled horizon; then
   echo_summary "Installing Sahara dashboard"
   enable_service sahara-dashboard
+fi
 
 # Plugin
 enable_plugin sahara ${GIT_BASE}/openstack/sahara {{ service.release|default("$DEVSTACK_RELEASE") }}
