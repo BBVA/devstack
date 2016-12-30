@@ -37,20 +37,22 @@ Vagrant.configure(2) do |config|
     node.vm.provision 'ansible' do |ansible|
       ansible.playbook = 'playbook.yaml'
       ansible.verbose = 'v'
+      ansible.config_file = "ansible.cfg"
     end
     node.vm.provision 'shell',
                       inline: 'cd /home/vagrant/devstack && ./stack.sh',
                       privileged: false,
                       keep_color: true
-     node.vm.network :private_network,
-                      ip: CONFIG['networking']['address'],
-                      netmask: CONFIG['networking']['netmask'],
-                      bridge: CONFIG['networking']['bridge']
+    node.vm.network :private_network,
+                    ip: CONFIG['networking']['address'],
+                    netmask: CONFIG['networking']['netmask'],
+                    bridge: CONFIG['networking']['bridge']
 #    node.vm.network :public_network,
 #                    ip: CONFIG['networking']['address'],
 #                    netmask: CONFIG['networking']['netmask'],
 #                    bridge: CONFIG['networking']['bridge']
   end
+
 
   #config.vm.synced_folder "../devstack/nova", "/opt/stack/nova"
 
