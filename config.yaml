@@ -8,8 +8,23 @@ resources:
   memory: 6096
   vcpus: 2
   storage: 65536
+#provider:
+#  openstack:
+#    endpoint: https://indetiy.url:5000/v2
+#    username: user
+#    password: secret
+#    tenant_name: DoO
+#    server_name: devstack
+#    flavor: m1.medium
+#    image: ubuntu-14
+#    floating_ip_pool: public
+#    networks:
+#     - net1
+#    keypair_name: mykeypair
+#    security_groups:
+#     - default
 devstack:
-  release: stable/newton
+  release: master
   password: enrique
   git_base: https://github.com
   services:
