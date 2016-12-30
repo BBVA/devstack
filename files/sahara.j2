@@ -28,7 +28,7 @@ SAHARA_PERIODIC_COORDINATOR_URL=kazoo://127.0.0.1:2181
 TEMPEST_SERVICES+=,sahara
 
 {# Requirements #}
-{{ service_reqs_macro('heat') }}
+{{ service_reqs_macro(service, 'heat') }}
 
 if is_service_enabled horizon; then
   echo_summary "Installing Sahara dashboard"

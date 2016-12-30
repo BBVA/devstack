@@ -32,15 +32,15 @@ DEFAULT_INSTANCE_TYPE=m1.tiny
 # Tempest , use service configuration in YAML
 INSTALL_TEMPEST=False
 
-{% set service_reqs=[''] %}
+{% set service_reqs=[] %}
 
-{% macro service_reqs_macro(name) -%}
+{% macro service_reqs_macro(service, name) -%}
 {# Requirements #}
 {% if name not in service_reqs %}
-echo_summary "Installing Heat requirements ..."
+echo_summary "Installing {{ name|upper }} service requirements ..."
 {% include [name,".j2"]|join %}
 {% else %}
-echo_summary {{ [name," requirement is installed :-)"]|join }}
+echo_summary "{{ name|upper }} service requirement is installed :-)"
 {% endif %}
 {%- endmacro %}
 
