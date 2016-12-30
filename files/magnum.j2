@@ -11,7 +11,7 @@ enable_service magnum-cond
 if is_service_enabled heat; then
   echo_summary "Heat requirement is installed :-)"
 elif
-  {% include heat.j2 %}
+  {% include "heat.j2" %}
 fi
 
 
