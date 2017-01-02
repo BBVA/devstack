@@ -37,7 +37,7 @@ $ vagrant up --provision
 ==> devstack: Horizon is now available at http://192.168.10.10/dashboard
 ==> devstack: Keystone is serving at http://192.168.10.10/identity/
 ==> devstack: The default users are: admin and demo
-==> devstack: The password: enrique
+==> devstack: The password: secret
 ==> devstack: 2016-12-19 14:21:53.960 | stack.sh completed in 1806 seconds.
 ```
 
@@ -63,3 +63,4 @@ Just add the endpoint and credentials of our devstack into ***clouds.yml*** file
 ## Authors
 
 Enrique Garcia Pablos <engapa@gmail.com>
+Leticia Garcia Martin <leti.garcia.martin@gmail.com>
