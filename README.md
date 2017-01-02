@@ -1,4 +1,5 @@
-# Devstack
+# Devstack [![CircleCI](https://circleci.com/gh/engapa/devstack/tree/master.svg?style=svg)](https://circleci.com/gh/engapa/devstack/tree/master)
+
 
 Creates a complete Openstack environment by using Vagrant + Devstack + Ansible
 
