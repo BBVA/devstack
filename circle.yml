@@ -1,0 +1,7 @@
+dependencies:
+  pre:
+    - pip install ansible
+
+test:
+  override:
+    - ansible-playbook -c local -i "localhost," playbook_test.yaml
