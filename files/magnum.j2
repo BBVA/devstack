@@ -1,19 +1,40 @@
-# ======================================= MAGNUM ==============================================
+{% extends "common.j2" %}
+{% block content scoped %}
 
-{# Requirements #}
-{{ service_reqs_macro(service, 'heat') }}
-
+#MAGNUM_DIR=$DEST/magnum
 #MAGNUM_GUEST_IMAGE_URL="https://fedorapeople.org/groups/magnum/fedora-atomic-latest.qcow2"
+
+#MAGNUM_STATE_PATH=$DATA_DIR/magnum
+#MAGNUM_AUTH_CACHE_DIR=/var/cache/magnum
+
+#MAGNUM_CONF_DIR=/etc/magnum
+#MAGNUM_CONF=$MAGNUM_CONF_DIR/magnum.conf
+#MAGNUM_POLICY_JSON=$MAGNUM_CONF_DIR/policy.json
+#MAGNUM_API_PASTE=$MAGNUM_CONF_DIR/api-paste.ini
+
+#MAGNUM_SERVICE_HOST=$HOST_IP
+#MAGNUM_SERVICE_PORT=9511
+#MAGNUM_SERVICE_PORT_INT=19511
+#MAGNUM_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
+
+#MAGNUM_TRUSTEE_DOMAIN_ADMIN_PASSWORD=secret
+
+#MAGNUM_SWIFT_REGISTRY_CONTAINER=docker_registry
+
+#MAGNUM_CONFIGURE_IPTABLES=True
 
 if is_service_enabled horizon; then
   echo_summary "Installing Magnum dashboard"
   enable_service magnum-ui
 fi
 
-enable_plugin magnum ${GIT_BASE}/openstack/magnum {{ service.release|default("$DEVSTACK_RELEASE") }}
+{# Requirements #}
+{{ service_reqs_macro(service, 'heat') }}
 
-# Enable Magnum services
-enable_service magnum-api
-enable_service magnum-cond
+{{ super() }}
 
-# ============================================================================================
+# WARNING: Custom service activation. Plugin activation would can activate others service dynamically
+#enable_service magnum-api
+#enable_service magnum-cond
+
+{% endblock %}

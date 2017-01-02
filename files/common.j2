@@ -1,0 +1,11 @@
+# ======================================= {{ service.name|upper }} ============================================
+
+{% block content%}
+# Service client
+{{ service.name|upper }}CLIENT_REPO={{ service.repo_client|default("${GIT_OS}/python-" + service.name + "client.git") }}
+{{ service.name|upper }}CLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
+# Enable plugin
+enable_plugin {{ service.name }} {{ service.repo|default("${GIT_OS}/" + service.name) }} {{ service.release|default("$DEVSTACK_RELEASE") }}
+{% endblock %}
+
+# ============================================================================================

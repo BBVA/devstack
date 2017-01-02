@@ -1,15 +1,11 @@
-# ======================================= SAHARA ==============================================
+{% extends "common.j2" %}
+{% block content scoped %}
 
-# Set up default directories
 SAHARACLIENT_DIR=$DEST/python-saharaclient
 SAHARA_DIR=$DEST/sahara
 
-SAHARACLIENT_REPO=${GIT_BASE}/openstack/python-saharaclient.git
-SAHARACLIENT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
-
 SAHARA_CONF_DIR=/etc/sahara
 SAHARA_CONF_FILE=${SAHARA_CONF_DIR}/sahara.conf
-
 
 SAHARA_SERVICE_HOST=$SERVICE_HOST
 SAHARA_SERVICE_PORT=8386
@@ -30,15 +26,14 @@ TEMPEST_SERVICES+=,sahara
 {# Requirements #}
 {{ service_reqs_macro(service, 'heat') }}
 
+{{ super() }}
+
 if is_service_enabled horizon; then
   echo_summary "Installing Sahara dashboard"
-  enable_service sahara-dashboard
+  enable_plugin sahara-dashboard {{ service.repo|default("${GIT_OS}/sahara-dashboard") }} {{ service.release|default("$DEVSTACK_RELEASE") }}
 fi
 
-# Plugin
-enable_plugin sahara ${GIT_BASE}/openstack/sahara {{ service.release|default("$DEVSTACK_RELEASE") }}
-
 # Service
-enable_service sahara-api sahara-eng
+#enable_service sahara-api sahara-eng
 
-# ========================================================================================
+{% endblock %}

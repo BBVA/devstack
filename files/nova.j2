@@ -1,5 +1,12 @@
-# ======================================= NOVA ========================================
+{% extends "common.j2" %}
+{% block content scoped %}
+
+NOVA_REPO={{ service.repo|default("${GIT_OS}/nova.git") }}
+NOVA_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+
+NOVACLIENT_REPO={{ service.repo_client|default("${GIT_OS}/python-novaclient.git") }}
+NOVACLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
 
 enable_service n-api n-cpu n-cond n-sch n-novnc n-cauth
 
-# =====================================================================================
+{% endblock %}

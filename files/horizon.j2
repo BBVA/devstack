@@ -1,5 +1,14 @@
-# ======================================= HORIZON ============================================
+{% extends "common.j2" %}
+{% block content scoped %}
+#HORIZON_DIR=$DEST/horizon
+
+# local_settings.py is used to customize Dashboard settings.
+# The example file in Horizon repo is used by default.
+#HORIZON_SETTINGS=$HORIZON_DIR/openstack_dashboard/local/local_settings.py.example
+
+HORIZON_REPO={{ service.repo|default("${GIT_OS}/horizon.git") }}
+HORIZON_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 
 enable_service horizon
 
-# ============================================================================================
+{% endblock %}

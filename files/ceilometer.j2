@@ -1,5 +1,5 @@
-# ======================================= CEILOMETER =====================================================
-
+{% extends "common.j2" %}
+{% block content scoped %}
 # Default directories
 #CEILOMETER_DIR=$DEST/ceilometer
 #CEILOMETER_CONF_DIR=/etc/ceilometer
@@ -36,13 +36,13 @@
 # Tell Tempest this project is present
 TEMPEST_SERVICES+=,ceilometer
 
-#CEILOMETERCLIENT_REPO=${GIT_BASE}/openstack/python-ceilometerclient.git
-#CEILOMETERCLIENT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+{{ super() }}
 
-enable_service ceilometer-acompute ceilometer-acentral
+# WARNING: Custom service activation. Plugin activation would can activate others service dynamically
+# enable_service ceilometer-acompute ceilometer-acentral ceilometer-api
 # Notification Agent
 # enable_service ceilometer-anotification
 # Data Collector
 # enable_service ceilometer-collector
 
-# ====================================================================================================
+{% endblock %}

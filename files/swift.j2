@@ -1,9 +1,92 @@
-# ======================================= SWIFT ====================================
+{% extends "common.j2" %}
+{% block content scoped %}
+SWIFT_DIR=$DEST/swift
+SWIFT_AUTH_CACHE_DIR=/var/cache/swift
+SWIFT_APACHE_WSGI_DIR=/var/www/swift
+SWIFT3_DIR=$DEST/swift3
+
+#SWIFT_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
+#SWIFT_DEFAULT_BIND_PORT=8080
+#SWIFT_DEFAULT_BIND_PORT_INT=8081
+#SWIFT_SERVICE_LOCAL_HOST=$SERVICE_LOCAL_HOST
+#SWIFT_SERVICE_LISTEN_ADDRESS=$SERVICE_LISTEN_ADDRESS
+#S3_SERVICE_PORT=$SWIFT_DEFAULT_BIND_PORT
+
+# Set ``SWIFT_DATA_DIR`` to the location of swift drives and objects.
+# Default is the common DevStack data directory.
+SWIFT_DATA_DIR=${DATA_DIR}/swift
+SWIFT_DISK_IMAGE=${SWIFT_DATA_DIR}/drives/images/swift.img
+
+# Set ``SWIFT_CONF_DIR`` to the location of the configuration files.
+# Default is ``/etc/swift``.
+#SWIFT_CONF_DIR=/etc/swift
+
+#SWIFT_LOOPBACK_DISK_SIZE=$SWIFT_LOOPBACK_DISK_SIZE_DEFAULT
+
+#SWIFT_EXTRAS_MIDDLEWARE=formpost staticweb
+
+#SWIFT_EXTRAS_MIDDLEWARE_LAST=""
+
+# Set ``SWIFT_EXTRAS_MIDDLEWARE_NO_AUTH`` to extras middlewares that need to be at
+# the beginning of the pipeline, before authentication middlewares.
+SWIFT_EXTRAS_MIDDLEWARE_NO_AUTH=crossdomain
+
+# The ring uses a configurable number of bits from a path's MD5 hash as
+# a partition index that designates a device. The number of bits kept
+# from the hash is known as the partition power, and 2 to the partition
+# power indicates the partition count. Partitioning the full MD5 hash
+# ring allows other parts of the cluster to work in batches of items at
+# once which ends up either more efficient or at least less complex than
+# working with each item separately or the entire cluster all at once.
+# By default we define 9 for the partition count (which mean 512).
+SWIFT_PARTITION_POWER_SIZE=9
+
+# Set ``SWIFT_REPLICAS`` to configure how many replicas are to be
+# configured for your Swift cluster. By default we are configuring
+# only one replica since this is way less CPU and memory intensive. If
+# you are planning to test swift replication you may want to set this
+# up to 3.
+SWIFT_REPLICAS=1
+SWIFT_REPLICAS_SEQ=$(seq ${SWIFT_REPLICAS})
+
+# Set ``SWIFT_LOG_TOKEN_LENGTH`` to configure how many characters of an auth
+# token should be placed in the logs. When keystone is used with PKI tokens,
+# the token values can be huge, seemingly larger the 2K, at the least. We
+# restrict it here to a default of 12 characters, which should be enough to
+# trace through the logs when looking for its use.
+SWIFT_LOG_TOKEN_LENGTH=12
+
+# Set ``SWIFT_MAX_HEADER_SIZE`` to configure the maximum length of headers in
+# Swift API
+SWIFT_MAX_HEADER_SIZE=16384
+
+# Set ``SWIFT_MAX_FILE_SIZE`` to configure the maximum file size in Swift API
+# Default 500MB because the loopback file used for swift could be 1 or 2 GB
+SWIFT_MAX_FILE_SIZE=$SWIFT_MAX_FILE_SIZE_DEFAULT
+
+# Set ``OBJECT_PORT_BASE``, ``CONTAINER_PORT_BASE``, ``ACCOUNT_PORT_BASE``
+# Port bases used in port number calculation for the service "nodes"
+# The specified port number will be used, the additional ports calculated by
+# base_port + node_num * 10
+OBJECT_PORT_BASE=6613
+CONTAINER_PORT_BASE=6611
+ACCOUNT_PORT_BASE=6612
+
+# Enable tempurl feature
+SWIFT_ENABLE_TEMPURLS=False
+SWIFT_TEMPURL_KEY=""
+
+# Toggle for deploying Swift under HTTPD + mod_wsgi
+SWIFT_USE_MOD_WSGI=False
+
+# A space-separated list of storage node IPs that
+# should be used to create the Swift rings
+SWIFT_STORAGE_IPS="192.168.10.10 192.168.10.11 192.168.10.12"
+
+SWIFT_HASH=$SERVICE_PASSWORD
 
 enable_service s-proxy s-object s-container s-account
 
-#SWIFT_HASH=$SERVICE_PASSWORD
-#SWIFT_REPLICAS=1
-#SWIFT_STORAGE_IPS: "192.168.1.10 192.168.1.11 192.168.1.12"
+#enable_service swift3
 
-# ==================================================================================
+{% endblock %}

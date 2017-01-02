@@ -1,8 +1,5 @@
-# ======================================= TEMPEST =============================
-
-$TEMPEST_REPO=${GIT_BASE}/openstack/tempest.git
-$TEMPEST_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
-
+{% extends "common.j2" %}
+{% block content scoped %}
 # Tempest
 #TEMPEST_DIR=$DEST/tempest
 #TEMPEST_CONFIG_DIR=$TEMPEST_DIR/etc
@@ -20,14 +17,14 @@ INSTALL_TEMPEST="True"
 
 # This variable is passed directly to pip install inside the common tox venv
 # that is created
-TEMPEST_PLUGINS=0
+#TEMPEST_PLUGINS=0
 
 # Cinder/Volume variables
-TEMPEST_VOLUME_DRIVER=default
-TEMPEST_DEFAULT_VOLUME_VENDOR="Open Source"
-TEMPEST_VOLUME_VENDOR=$TEMPEST_DEFAULT_VOLUME_VENDOR
-TEMPEST_DEFAULT_STORAGE_PROTOCOL="iSCSI"
-TEMPEST_STORAGE_PROTOCOL=$TEMPEST_DEFAULT_STORAGE_PROTOCOL
+#TEMPEST_VOLUME_DRIVER=default
+#TEMPEST_DEFAULT_VOLUME_VENDOR="Open Source"
+#TEMPEST_VOLUME_VENDOR=$TEMPEST_DEFAULT_VOLUME_VENDOR
+#TEMPEST_DEFAULT_STORAGE_PROTOCOL="iSCSI"
+#TEMPEST_STORAGE_PROTOCOL=$TEMPEST_DEFAULT_STORAGE_PROTOCOL
 
 TEMPEST_HAS_ADMIN=True
 
@@ -35,4 +32,6 @@ TEMPEST_HAS_ADMIN=True
 TEMPEST_ALLOW_TENANT_ISOLATION=$TEMPEST_HAS_ADMIN
 TEMPEST_USE_TEST_ACCOUNTS=False
 
-# ===========================================================================
+{{ super() }}
+
+{% endblock %}

@@ -1,5 +1,43 @@
-# ======================================= GLANCE ================================================
+{% extends "common.j2" %}
+{% block content scoped %}
+#GLANCE_DIR=$DEST/glance
+
+#GLANCE_CACHE_DIR=$DATA_DIR/glance/cache
+#GLANCE_IMAGE_DIR=$DATA_DIR/glance/images
+#GLANCE_AUTH_CACHE_DIR=/var/cache/glance
+
+#GLANCE_CONF_DIR==/etc/glance
+#GLANCE_METADEF_DIR=$GLANCE_CONF_DIR/metadefs
+#GLANCE_REGISTRY_CONF=$GLANCE_CONF_DIR/glance-registry.conf
+#GLANCE_API_CONF=$GLANCE_CONF_DIR/glance-api.conf
+#GLANCE_REGISTRY_PASTE_INI=$GLANCE_CONF_DIR/glance-registry-paste.ini
+#GLANCE_API_PASTE_INI=$GLANCE_CONF_DIR/glance-api-paste.ini
+#GLANCE_CACHE_CONF=$GLANCE_CONF_DIR/glance-cache.conf
+#GLANCE_POLICY_JSON=$GLANCE_CONF_DIR/policy.json
+#GLANCE_SCHEMA_JSON=$GLANCE_CONF_DIR/schema-image.json
+#GLANCE_SWIFT_STORE_CONF=$GLANCE_CONF_DIR/glance-swift-store.conf
+#GLANCE_GLARE_CONF=$GLANCE_CONF_DIR/glance-glare.conf
+#GLANCE_GLARE_PASTE_INI=$GLANCE_CONF_DIR/glance-glare-paste.ini
+#GLANCE_V1_ENABLED=True
+
+# Glance connection info.  Note the port must be specified.
+#GLANCE_SERVICE_HOST=$SERVICE_HOST
+#GLANCE_SERVICE_LISTEN_ADDRESS=$SERVICE_LISTEN_ADDRESS
+#GLANCE_SERVICE_PORT=9292
+#GLANCE_SERVICE_PORT_INT=19292
+#GLANCE_HOSTPORT=$GLANCE_SERVICE_HOST:$GLANCE_SERVICE_PORT
+#GLANCE_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
+#GLANCE_REGISTRY_PORT=9191
+#GLANCE_REGISTRY_PORT_INT=19191
+#GLANCE_GLARE_PORT=9494
+#GLANCE_GLARE_HOSTPORT=$GLANCE_SERVICE_HOST:$GLANCE_GLARE_PORT
+
+GLANCE_REPO={{ service.repo|default("${GIT_OS}/glance.git") }}
+GLANCE_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+
+GLANCECLIENT_REPO={{ service.repo_client|default("${GIT_OS}/python-glanceclient.git") }}
+GLANCECLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
 
 enable_service g-api g-reg
 
-# ===============================================================================================
+{% endblock %}

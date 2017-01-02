@@ -1,43 +1,31 @@
-# ======================================= HEAT ===============================================
-
-# heat service
-HEAT_REPO=${GIT_BASE}/openstack/heat.git
-HEAT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
-
-# python heat client library
-HEATCLIENT_REPO=${GIT_BASE}/openstack/python-heatclient.git
-HEATCLIENT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
-
+{% extends "common.j2" %}
+{% block content scoped %}
 # Toggle for deploying Heat-API under HTTPD + mod_wsgi
 HEAT_USE_MOD_WSGI=False
 
-HEAT_AUTH_CACHE_DIR=/var/cache/heat
-HEAT_STANDALONE=False
-HEAT_ENABLE_ADOPT_ABANDON=True
-HEAT_CONF_DIR=/etc/heat
-HEAT_API_HOST=$HOST_IP
-HEAT_API_PORT=8004
-HEAT_SERVICE_USER=heat
-HEAT_TRUSTEE_USER=$HEAT_SERVICE_USER
-HEAT_TRUSTEE_PASSWORD=$SERVICE_PASSWORD
-HEAT_TRUSTEE_DOMAIN=default
+#HEAT_AUTH_CACHE_DIR=/var/cache/heat
+#HEAT_STANDALONE=False
+#HEAT_ENABLE_ADOPT_ABANDON=True
+#HEAT_CONF_DIR=/etc/heat
+#HEAT_API_HOST=$HOST_IP
+#HEAT_API_PORT=8004
+#HEAT_SERVICE_USER=heat
+#HEAT_TRUSTEE_USER=$HEAT_SERVICE_USER
+#HEAT_TRUSTEE_PASSWORD=$SERVICE_PASSWORD
+#HEAT_TRUSTEE_DOMAIN=default
+#
+#HEAT_PLUGIN_DIR=$DATA_DIR/heat/plugins
+#ENABLE_HEAT_PLUGINS=
 
-HEAT_PLUGIN_DIR=$DATA_DIR/heat/plugins
-ENABLE_HEAT_PLUGINS=
+#IMAGE_URLS+=",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
 
-IMAGE_URLS+=",http://ftp.cica.es/fedora/linux/releases/25/CloudImages/x86_64/images/Fedora-Cloud-Base-25-1.3.x86_64.qcow2"
+{{ super() }}
 
-#Enable plugin
-enable_plugin heat ${GIT_BASE}/openstack/heat {{ service.release|default("$DEVSTACK_RELEASE") }}
+# WARNING: Custom service activation. Plugin activation would can activate others service dynamically
+#enable_service heat
+#enable_service h-eng
+#enable_service h-api
+#enable_service h-api-cfn
+#enable_service h-api-cw
 
-# Enable services
-enable_service heat
-enable_service h-eng
-enable_service h-api
-enable_service h-api-cfn
-enable_service h-api-cw
-
-{% if 'heat' not in service_reqs %}
-{% do service_reqs.append('heat') %}
-{% endif %}
-# ============================================================================================
+{% endblock %}

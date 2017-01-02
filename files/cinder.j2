@@ -1,4 +1,51 @@
-# ======================================= CINDER =====================================================
+{% extends "common.j2" %}
+{% block content scoped %}
+#CINDER_DRIVER=default
+
+#CINDER_STATE_PATH=$DATA_DIR/cinder
+#CINDER_AUTH_CACHE_DIR=/var/cache/cinder
+
+#CINDER_CONF_DIR=/etc/cinder
+#CINDER_CONF=$CINDER_CONF_DIR/cinder.conf
+#CINDER_API_PASTE_INI=$CINDER_CONF_DIR/api-paste.ini
+
+#CINDER_SERVICE_HOST=$SERVICE_HOST
+#CINDER_SERVICE_PORT=8776
+#CINDER_SERVICE_PORT_INT=18776
+#CINDER_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
+#CINDER_SERVICE_LISTEN_ADDRESS=$SERVICE_LISTEN_ADDRESS
+
+#CINDER_LVM_TYPE=default
+
+#CINDER_ENABLED_BACKENDS="lvm:lvmdriver-1"
+
+#CINDER_PERIODIC_INTERVAL=60
+
+#CINDER_ISCSI_HELPER=tgtadm
+
+# Toggle for deploying Cinder under HTTPD + mod_wsgi
+#CINDER_USE_MOD_WSGI=False
+
+#CINDER_NOVA_CATALOG_INFO="compute:nova:publicURL"
+#CINDER_NOVA_CATALOG_ADMIN_INFO="compute:nova:adminURL"
+
+# Environment variables to configure the image-volume cache
+#CINDER_IMG_CACHE_ENABLED=True
+
+# For limits, if left unset, it will use cinder defaults of 0 for unlimited
+#CINDER_IMG_CACHE_SIZE_GB=""
+#CINDER_IMG_CACHE_SIZE_COUNT=""
+
+# Configure which cinder backends will have the image-volume cache, this takes the same
+# form as the CINDER_ENABLED_BACKENDS config option. By default it will
+# enable the cache for all cinder backends.
+#CINDER_CACHE_ENABLED_FOR_BACKENDS=$CINDER_ENABLED_BACKENDS
+
+CINDER_REPO={{ service.repo|default("${GIT_OS}/cinder.git") }}
+CINDER_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+
+CINDERCLIENT_REPO={{ service.repo_client|default("${GIT_OS}/python-cinderclient.git") }}
+CINDERCLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
 
 # Ceph
 #CINDER_DRIVER=ceph
@@ -6,4 +53,4 @@
 
 enable_service c-sch c-api c-vol
 
-# ====================================================================================================
+{% endblock %}

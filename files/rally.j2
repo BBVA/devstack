@@ -1,6 +1,6 @@
-# ======================================= TEMPEST =============================
+{% extends "common.j2" %}
+{% block content scoped %}
 
-enable_plugin rally https://github.com/openstack/rally {{ service.release|default("$DEVSTACK_RELEASE") }}
-enable_service rally
+{{ super() }}
 
-# ============================================================================
+{% endblock %}

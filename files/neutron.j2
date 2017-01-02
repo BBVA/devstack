@@ -1,5 +1,12 @@
-# ======================================= NEUTRON =====================================
+{% extends "common.j2" %}
+{% block content scoped %}
+
+NEUTRON_REPO={{ service.repo|default("${GIT_OS}/neutron.git") }}
+NEUTRON_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+
+NEUTRONCLIENT_REPO={{ service.repo_client|default("${GIT_OS}/python-neutronclient.git") }}
+NEUTRONCLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
 
 enable_service q-svc q-dhcp q-meta q-agt q-l3
 
-# =====================================================================================
+{% endblock %}

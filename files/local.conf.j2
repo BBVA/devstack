@@ -33,15 +33,12 @@ DEFAULT_INSTANCE_TYPE=m1.tiny
 INSTALL_TEMPEST=False
 
 {% set service_reqs=[] %}
+{% set service_installed=[] %}
 
 {% macro service_reqs_macro(service, name) -%}
-{# Requirements #}
-{% if name not in service_reqs %}
-echo_summary "Installing {{ name|upper }} service requirements ..."
-{% include [name,".j2"]|join %}
-{% else %}
-echo_summary "{{ name|upper }} service requirement is installed :-)"
-{% endif %}
+    {% if name not in service_reqs %}
+        {% do service_reqs.append(name) %}
+    {% endif %}
 {%- endmacro %}
 
 {% if 'services' in devstack -%}
@@ -49,6 +46,17 @@ echo_summary "{{ name|upper }} service requirement is installed :-)"
     {% for service in devstack.services %}
 
         {% include [service.name, '.j2']|join %}
+        {% do service_installed.append(service.name) %}
+    {% endfor %}
+{% endif %}
 
+{%  if service_reqs %}
+    {% for service_req in service_reqs %}
+        {% if service_req not in service_installed -%}
+            echo_summary "Installing {{ service_req|upper }} service requirements ..."
+            {% set service={'name': service_req} %}
+            {% include [service_req,".j2"]|join %}
+            {% do service_installed.append(service_req) %}
+        {% endif %}
     {% endfor %}
 {% endif %}

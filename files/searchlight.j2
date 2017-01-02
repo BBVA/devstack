@@ -1,5 +1,33 @@
-# ======================================= SEARCHLINGHT ======================================
+{% extends "common.j2" %}
+{% block content scoped %}
 
-enable_service searchlight-api searchlight-listener
+# Set up default paths
+#SEARCHLIGHT_BIN_DIR=$(get_python_exec_prefix)
+#SEARCHLIGHT_DIR=$DEST/searchlight
+#SEARCHLIGHT_CONF_DIR=/etc/searchlight
+#SEARCHLIGHT_STATE_PATH=$DATA_DIR/searchlight
+#SEARCHLIGHT_CONF=$SEARCHLIGHT_CONF_DIR/searchlight.conf
+#SEARCHLIGHT_LOG_DIR=/var/log/searchlight
+#SEARCHLIGHT_AUTH_CACHE_DIR=/var/cache/searchlight
+#SEARCHLIGHT_APIPASTE_CONF=$SEARCHLIGHT_CONF_DIR/api-paste.ini
 
-# =====================================================================================
+# Public IP/Port Settings
+#SEARCHLIGHT_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
+#SEARCHLIGHT_SERVICE_HOST=$SERVICE_HOST
+#SEARCHLIGHT_SERVICE_PORT=9393
+#SEARCHLIGHT_SERVICE_PORT_INT=19393
+
+#ELASTICSEARCH_VERSION=2.3.4
+#ELASTICSEARCH_BASEURL="https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution"
+#ELASTICSEARCH_BASEURL_DEB=${ELASTICSEARCH_BASEURL}/deb/elasticsearch
+#ELASTICSEARCH_BASEURL_RPM=${ELASTICSEARCH_BASEURL}/rpm/elasticsearch
+
+# Tell Tempest this project is present
+TEMPEST_SERVICES+=,searchlight
+
+{{ super() }}
+
+# WARNING: Custom service activation. Plugin activation would can activate others service dynamically
+#enable_service searchlight-api searchlight-listener
+
+{% endblock %}

@@ -1,5 +1,12 @@
-# ======================================= KEYSTONE ===========================================
+{% extends "common.j2" %}
+{% block content scoped %}
+
+KEYSTONE_REPO={{ service.repo|default("${GIT_OS}/keystone.git") }}
+KEYSTONE_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+
+KEYSTONECLIENT_REPO={{ service.repo_client|default("${GIT_OS}/python-keystoneclient.git") }}
+KEYSTONECLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
 
 enable_service key
 
-# ============================================================================================
+{% endblock %}

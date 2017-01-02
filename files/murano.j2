@@ -1,46 +1,44 @@
-# ======================================= MURANO ==============================================
+{% extends "common.j2" %}
+{% block content scoped %}
 
-MURANO_REPO=${GIT_BASE}/openstack/murano.git
-MURANO_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
-
-MURANO_PYTHONCLIENT_REPO=${GIT_BASE}/openstack/python-muranoclient.git
-MURANO_PYTHONCLIENT_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+MURANO_PYTHONCLIENT_REPO={{ service.release_client|default("${GIT_OS}/python-muranoclient.git") }}
+MURANO_PYTHONCLIENT_BRANCH={{ service.release_client|default("$DEVSTACK_RELEASE") }}
 
 # Set up default directories
-MURANO_DIR=$DEST/murano
-MURANO_CONF_DIR=/etc/murano
-MURANO_CONF_FILE=${MURANO_CONF_DIR}/murano.conf
-MURANO_CFAPI_CONF_FILE=${MURANO_CONF_DIR}/murano-cfapi.conf
-MURANO_POLICY_FILE=${MURANO_CONF_DIR}/policy.json
-MURANO_DEBUG=True
-MURANO_ENABLE_MODEL_POLICY_ENFORCEMENT=False
+#MURANO_DIR=$DEST/murano
+#MURANO_CONF_DIR=/etc/murano
+#MURANO_CONF_FILE=${MURANO_CONF_DIR}/murano.conf
+#MURANO_CFAPI_CONF_FILE=${MURANO_CONF_DIR}/murano-cfapi.conf
+#MURANO_POLICY_FILE=${MURANO_CONF_DIR}/policy.json
+#MURANO_DEBUG=True
+#MURANO_ENABLE_MODEL_POLICY_ENFORCEMENT=False
 
 IMAGE_URLS+=",http://storage.apps.openstack.org/images/ubuntu-14.04-m-agent.qcow2"
 
 # Set up murano service endpoint
-MURANO_SERVICE_HOST=$SERVICE_HOST
-MURANO_SERVICE_PORT=8082
-MURANO_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
+#MURANO_SERVICE_HOST=$SERVICE_HOST
+#MURANO_SERVICE_PORT=8082
+#MURANO_SERVICE_PROTOCOL=$SERVICE_PROTOCOL
 
 # Set up settings for service broker API
-MURANO_CFAPI_SERVICE_PORT=8083
-MURANO_CFAPI_DEFAULT_TENANT=admin
+#MURANO_CFAPI_SERVICE_PORT=8083
+#MURANO_CFAPI_DEFAULT_TENANT=admin
 
 # Set up default service user for murano
-MURANO_ADMIN_USER=murano
+#MURANO_ADMIN_USER=murano
 
-MURANO_KEYSTONE_SIGNING_DIR=/tmp/keystone-signing-muranoapi
+#MURANO_KEYSTONE_SIGNING_DIR=/tmp/keystone-signing-muranoapi
 
 # Set up murano networking settings
-MURANO_DEFAULT_ROUTER=''
-MURANO_EXTERNAL_NETWORK=''
-MURANO_DEFAULT_DNS='8.8.8.8'
+#MURANO_DEFAULT_ROUTER=''
+#MURANO_EXTERNAL_NETWORK=''
+#MURANO_DEFAULT_DNS='8.8.8.8'
 
 # Choose applications for installation
-MURANO_APPS=''
-MURANO_APPS_DIR=$DEST/murano-apps
-MURANO_APPS_REPO=${GIT_BASE}/openstack/murano-apps.git
-MURANO_APPS_BRANCH=master
+#MURANO_APPS=''
+#MURANO_APPS_DIR=$DEST/murano-apps
+MURANO_APPS_REPO={{ service.release|default("${GIT_OS}/python-murano-apps.git") }}
+MURANO_APPS_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 
 # MURANO_RABBIT_VHOST allows to specify a separate virtual host for Murano services.
 # This is not required if all OpenStack services are deployed by devstack scripts
@@ -49,27 +47,28 @@ MURANO_APPS_BRANCH=master
 #   devboxes to use one common OpenStack host. In this case it's better devboxes
 #   use separated virtual hosts, to avoid conflicts between Murano services.
 # This couldn't be done using existing variables, so that's why this variable was added.
-MURANO_RABBIT_VHOST=''
+#MURANO_RABBIT_VHOST=''
 
 # Settings needed for the Murano Tempest Plugin installation
-TEMPEST_DIR=$DEST/tempest
-TEMPEST_CONFIG_DIR=$TEMPEST_DIR/etc
-TEMPEST_CONFIG=$TEMPEST_CONFIG_DIR/tempest.conf
-TEMPEST_MURANO_SCENARIO_TESTS_ENABLED=True
-TEMPEST_MURANO_DEPLOYMENT_TESTS_ENABLED=False
+#TEMPEST_DIR=$DEST/tempest
+#TEMPEST_CONFIG_DIR=$TEMPEST_DIR/etc
+#TEMPEST_CONFIG=$TEMPEST_CONFIG_DIR/tempest.conf
+#TEMPEST_MURANO_SCENARIO_TESTS_ENABLED=True
+#TEMPEST_MURANO_DEPLOYMENT_TESTS_ENABLED=False
 
 # GlARe variables
 # Glance Artifact Repository endpoint type for Murano communications.
 # Public by default.
-GLARE_ENDPOINT_TYPE=publicURL
+#GLARE_ENDPOINT_TYPE=publicURL
 
 {# Requirements #}
 {{ service_reqs_macro(service, 'heat') }}
 
-enable_plugin murano  ${GIT_BASE}/openstack/murano {{ service.release|default("$DEVSTACK_RELEASE") }}
+{{ super() }}
 
-enable_service murano
-enable_service murano-api
-enable_service murano-engine
+# WARNING: Custom service activation. Plugin activation would can activate others service dynamically
+#enable_service murano
+#enable_service murano-api
+#enable_service murano-engine
 
-# ============================================================================================
+{% endblock %}

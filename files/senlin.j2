@@ -1,16 +1,35 @@
-# ======================================= SENLIN ===========================================
+{% extends "common.j2" %}
+{% block content scoped %}
+#SENLIN_AUTH_CACHE_DIR=/var/cache/senlin
+#SENLIN_CONF_DIR=/etc/senlin
+#SENLIN_CONF=$SENLIN_CONF_DIR/senlin.conf
 
-#SENLIN_USE_MOD_WSGI=True
+#SENLIN_API_HOST=HOST_IP
+#SENLIN_API_PORT=${SENLIN_API_PORT:-8778}
+
+#SENLIN_DIR=$DEST/senlin
+
+#SENLINCLIENT_DIR=$DEST/python-senlinclient
+
+# Toggle for deploying senlin-api under Apache(mod_wsgi)
+#SENLIN_USE_MOD_WSGI=False
+
+#SENLIN_ENGINE_HOST=$SERVICE_HOST
+#SENLIN_ENGINE_PORT=8778
+#SENLIN_API_PASTE_FILE=$SENLIN_CONF_DIR/api-paste.ini
+#SENLIN_POLICY_FILE=$SENLIN_CONF_DIR/policy.json
+
+{{ super() }}
 
 if is_service_enabled horizon; then
-  echo_summary "Installing Senlin dashboard"
-  enable_plugin senlin-dashboard ${GIT_BASE}/openstack/senlin-dashboard {{ service.release|default("$DEVSTACK_RELEASE") }}
+  echo_summary "Configure Senlin dashboard"
+  SENLIN_DASHBOARD_DIR=$DEST/senlin-dashboard
+  SENLIN_DASHBOARD_REPO={{ service.repo_ui|default("${GIT_OS}/senlin-dashboard.git") }}
+  SENLIN_DASHBOARD_BRANCH={{ service.release_ui|default("$DEVSTACK_RELEASE") }}
 fi
 
-# Enable senlin
-enable_plugin senlin ${GIT_BASE}/openstack/senlin {{ service.release|default("$DEVSTACK_RELEASE") }}
-
-# Enable services
+# WARNING: Custom service activation. Plugin activation would can activate others service dynamically
 enable_service sl-api sl-eng
 
-# =====================================================================================
+{% endblock %}
+
