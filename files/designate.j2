@@ -103,8 +103,8 @@
 #DESIGNATE_D2D_PROJECT_DOMAIN_NAME=
 #DESIGNATE_D2D_USER_DOMAIN_NAME=
 
-DESIGNATEDASHBOARD_REPO=${GIT_OS}/designate-dashboard.git
-DESIGNATEDASHBOARD_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
+DESIGNATEDASHBOARD_REPO={{ service.repo_ui|default("${GIT_OS}/designate-dashboard.git") }}
+DESIGNATEDASHBOARD_BRANCH={{ service.release_ui|default("$DEVSTACK_RELEASE") }}
 
 DESIGNATETEMPEST_BRANCH={{ service.release|default("$DEVSTACK_RELEASE") }}
 DESIGNATETEMPEST_REPO=${GIT_OS}/designate-tempest-plugin.git
