@@ -25,12 +25,16 @@ resources:
 #     - default
 devstack:
   release: master
-  password: enrique
+  password: secret
   git_base: https://github.com
   services:
     - name: keystone
 #      release: rc-1
 #      repo: https://github.com/engapa/keystone
+#      release_client: rc-1
+#      repo_client: https://github.com/engapa/python-keystoneclient
+#      release_ui: rc-1
+#      repo_ui: https://github.com/engapa/keystone-ui
     - name: nova
     - name: glance
     - name: cinder
@@ -42,12 +46,11 @@ devstack:
 #    - name: trove
 #    - name: ceilometer
 #    - name: searchlight
-#    - name: sahara
-#    - name: trove
+    - name: sahara
     - name: zaqar
     - name: magnum
 #    - name: senlin
-#    - name: murano
+    - name: murano
     - name: designate
 #    - name: aodh
 #    - name: rally
